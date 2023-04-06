@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="u-1-1" author="brr">
+        <createSequence sequenceName="users_seq" minValue="50" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="u-1-2" author="brr">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(256)">
+                <constraints unique="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(256)"/>
+            <column name="created" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="u-1-3" author="brr">
+        <sql>
+            INSERT INTO users (id, email, first_name, last_name, created, role, password) VALUES (1, 'test@email.com', 'Jonny', 'Dep', '2023-03-30 09:36:31.000000', 'USER', '{noop}password')
+        </sql>
+    </changeSet>
+
+    <changeSet id="u-1-4" author="brr">
+        <sql>
+            INSERT INTO users (id, email, first_name, last_name, created, role, password) VALUES (2, 'admin@email.com', 'Admin', 'Global', '2023-03-30 09:36:31.000000', 'ADMIN', '{noop}admin')
+        </sql>
+    </changeSet>
+
+    <changeSet id="u-1-5" author="brr">
+        <sql>
+            INSERT INTO users (id, email, first_name, last_name, created, role, password) VALUES (3, 'courier@email.com', 'Courier', 'Global', '2023-03-30 09:36:31.000000', 'COURIER', '{noop}courier')
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+version: '3.1'
+
+volumes:
+  guavapay-postgresql-data:
+
+services:
+
+  guavapay-postgresql:
+    image: postgres
+    container_name: guavapay-postgresql
+    restart: no
+    environment:
+      POSTGRES_USER: guavapay
+      POSTGRES_PASSWORD: guavapay
+      POSTGRES_DB: guavapay
+    hostname: postgres
+    ports:
+    - "5432:5432"
+    volumes:
+    - guavapay-postgresql-data:/var/lib/postgresql/data
+
+  guavapay-application:
+    depends_on:
+      - guavapay-postgresql
+    image: guavapay:0.0.1-SNAPSHOT
+    container_name: guavapay-application
+    ports:
+      - "8080:8080"

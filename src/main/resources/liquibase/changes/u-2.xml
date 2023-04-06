@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="u-2-1" author="brr">
+        <createSequence sequenceName="parcel_seq" minValue="50" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="u-2-2" author="brr">
+        <createTable tableName="parcel">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="address" type="VARCHAR(256)"/>
+            <column name="created_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="courier_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="u-2-3" author="brr">
+        <addForeignKeyConstraint
+                baseColumnNames="created_id"
+                baseTableName="parcel"
+                constraintName="FK_created_user_id"
+                referencedColumnNames="id"
+                referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="u-2-4" author="brr">
+        <addForeignKeyConstraint
+                baseColumnNames="courier_id"
+                baseTableName="parcel"
+                constraintName="FK_courier_user_id"
+                referencedColumnNames="id"
+                referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

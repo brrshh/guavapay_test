@@ -1,0 +1,34 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/token
+          jwk-set-uri: http://localhost:8080/.well-known/jwks.json
+
+  liquibase:
+    change-log: classpath*:liquibase/changelog.xml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: guavapay
+    username: guavapay
+    url: jdbc:postgresql://postgres:5432/guavapay
+  jpa:
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    use-root-path: true
+  show-actuator: true
+  api-docs:
+    enabled: true
+  show-oauth2-endpoints: true
+
+logging.level:
+  org.springdoc: debug
+  org.springframework:
+    security: debug
+    web: debug
